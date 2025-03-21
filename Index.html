@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Day</title>
+
+    <style>
+        /* Estilos globales */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #87CEEB;
+            flex-direction: column;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Estilos del título */
+        h1 {
+            font-family: cursive, Courier, monospace;
+            font-style: italic;
+            color: #5ba35b;
+            font-size: 5vw; /* Tamaño adaptable */
+            max-width: 90%;
+        }
+
+        /* Contenedor de la flor */
+        .flower-container {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            animation: fall 5s linear infinite;
+        }
+
+        /* Centro de la flor */
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #D2B48C;
+            border-radius: 50%;
+            top: 61%;
+            left: 51%;
+            z-index: 2;
+        }
+
+        /* Pétalos */
+        .petal {
+            position: absolute;
+            width: 30px;
+            height: 45px;
+            background-color: gold;
+            border-radius: 50% 50% 40% 40%;
+            top: 50%;
+            left: 50%;
+            transform-origin: center;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Distribución de los pétalos en círculo */
+        .petal:nth-child(1) { transform: rotate(0deg) translateY(-25px); }
+        .petal:nth-child(2) { transform: rotate(45deg) translateY(-25px); }
+        .petal:nth-child(3) { transform: rotate(90deg) translateY(-25px); }
+        .petal:nth-child(4) { transform: rotate(135deg) translateY(-25px); }
+        .petal:nth-child(5) { transform: rotate(180deg) translateY(-25px); }
+        .petal:nth-child(6) { transform: rotate(225deg) translateY(-25px); }
+        .petal:nth-child(7) { transform: rotate(270deg) translateY(-25px); }
+        .petal:nth-child(8) { transform: rotate(315deg) translateY(-25px); }
+
+        /* Animación de caída */
+        @keyframes fall {
+            0% { transform: translateY(-100vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0.6; }
+        }
+
+        /* Ajustes responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 8vw;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Feliz Día Guapo <br> ¡Te Amo Muchísimo! 🤍</h1>
+
+    <script>
+        function createFlower() {
+            const flowerContainer = document.createElement("div");
+            flowerContainer.classList.add("flower-container");
+
+            const xPos = Math.random() * window.innerWidth; // Posición horizontal aleatoria
+            const yPos = -60; // Empieza fuera de la pantalla (arriba)
+
+            flowerContainer.style.left = `${xPos}px`;
+            flowerContainer.style.top = `${yPos}px`;
+
+            // Crear los pétalos
+            for (let i = 0; i < 8; i++) {
+                const petal = document.createElement("div");
+                petal.classList.add("petal");
+                flowerContainer.appendChild(petal);
+            }
+
+            // Crear el centro de la flor
+            const flower = document.createElement("div");
+            flower.classList.add("flower");
+            flowerContainer.appendChild(flower);
+
+            // Añadir la flor al documento
+            document.body.appendChild(flowerContainer);
+
+            // Eliminar la flor después de la animación
+            setTimeout(() => {
+                flowerContainer.remove();
+            }, 5000);
+        }
+
+        // Generar flores cada 300ms
+        setInterval(createFlower, 300);
+    </script>
+
+</body>
+</html>
